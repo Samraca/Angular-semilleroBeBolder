@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Aplicación con Bootstrap</title>
+
+  <!-- Enlace al archivo CSS de Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Opcional: Enlace al archivo JavaScript de Bootstrap (si necesitas funcionalidades como dropdowns, modales, etc.) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+  <br>    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10">
+          <h2>Crear Empleado</h2>
+          <br>
+          <form>
+              <div class="form-row mb-4">
+                  <div class="form-group col-md-3">
+                    <label for="documento">Documento:</label>
+                    <input type="number" class="form-control" id="documento" name="documento" required>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="tipoDocumento">Tipo de Documento:</label>
+                    <input type="text" class="form-control" id="tipoDocumento" name="tipoDocumento" required>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" required>
+                  </div>
+                </div>
+                <div class="form-row mb-4">
+                  
+                  <div class="form-group col-md-4">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion" required>
+                  </div>
+                </div>
+                <div class="form-row mb-4">
+                  <div class="form-group col-md-4">
+                    <label for="fechaIngreso">Fecha de Ingreso:</label>
+                    <input type="date" class="form-control" id="fechaIngreso" name="fechaIngreso" required>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="fechaRetiro">Fecha de Retiro:</label>
+                    <input type="date" class="form-control" id="fechaRetiro" name="fechaRetiro">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="tipoContrato">Tipo de Contrato:</label>
+                    <input type="text" class="form-control" id="tipoContrato" name="tipoContrato" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="estado">Estado del Empleado:</label>
+                    <input type="text" class="form-control" id="estado" name="estado" required>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="supervisor">Supervisor:</label>
+                    <input type="text" class="form-control" id="supervisor" name="supervisor">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="cargo">Cargo:</label>
+                    <input type="text" class="form-control" id="cargo" name="cargo" required>
+                  </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Crear Empleado</button>
+          </form>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Lista de Empleados</h2>
+          <br>
+          <table class="table-responsive">
+              <thead>
+                  <tr>
+                    <th>Documento</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Fecha Ingreso</th>
+                    <th>Fecha Retiro</th>
+                    <th>Tipo Contrato</th>
+                    <th>Estado</th>
+                    <th>Supervisor</th>
+                    <th>Cargo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let empleado of empleados">
+                    <td>{{ empleado.documento }}</td>
+                    <td>{{ empleado.nombre }}</td>
+                    <td>{{ empleado.apellido }}</td>
+                    <td>{{ empleado.telefono }}</td>
+                    <td>{{ empleado.direccion }}</td>
+                    <td>{{ empleado.fechaIngreso | date }}</td>
+                    <td>{{ empleado.fechaRetiro ? empleado.fechaRetiro: 'N/A' | date : 'N/A' }}</td>
+                    <td>{{ empleado.tipoContrato }}</td>
+                    <td>{{ empleado.estado }}</td>
+                    <td>{{ empleado.supervisor?.nombreCompleto }}</td>
+                    <td>{{ empleado.cargo.nombre }}</td>
+                  </tr>
+                </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+</body>
+</html>
+  
