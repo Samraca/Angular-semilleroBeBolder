@@ -17,71 +17,219 @@
     <div class="container">
       <div class="row">
         <div class="col-md-10">
-          <h2>Crear Empleado</h2>
+
+          <div class="form-row mb-4">
+            <h2 class="mr-5" *ngIf="!editMode">Crear Empleado</h2>
+            <h2 class="mr-5" *ngIf="editMode">Editar Empleado</h2>
+            <div class="m-5"></div>
+            <div class="form-group col-md-3 ml-5">
+              <label for="documento-buscar">Documento:</label>
+              <input type="text" class="form-control" id="documento-buscar" formControlName="documento" required>
+            </div>
+            <div class="form-group col-md-3">
+              <label class="m-4"></label>
+              <button (click)="editModeActivate()" class="btn btn-primary">Buscar Empleado</button>
+            </div>
+          </div>
           <br>
-          <form [formGroup]="empleadoForm" (ngSubmit)="createEmpleado()">
+          <form [formGroup]="empleadoForm" (ngSubmit)="createEmpleado()" *ngIf="!editMode">
               <div class="form-row mb-4">
                   <div class="form-group col-md-3">
                     <label for="documento">Documento:</label>
-                    <input type="number" class="form-control" id="documento" name="documento" required>
+                    <input type="number" class="form-control" id="documento" formControlName="documento" required>
+                    <div *ngIf="empleadoForm.controls['documento'].invalid && (empleadoForm.controls['documento'].dirty || empleadoForm.controls['documento'].touched)" class="alert alert-danger small">
+                      Documento es requerido.
+                    </div>
                   </div>
                   <div class="form-group col-md-3">
                     <label for="tipoDocumento">Tipo de Documento:</label>
-                    <input type="text" class="form-control" id="tipoDocumento" name="tipoDocumento" required>
+                    <select class="form-control" id="tipoDocumento" formControlName="tipoDocumento" required>
+                      <option *ngFor="let tipo of tiposDocumento" [value]="tipo">{{tipo}}</option>
+                    </select>
+                    <div *ngIf="empleadoForm.controls['tipoDocumento'].invalid && (empleadoForm.controls['tipoDocumento'].dirty || empleadoForm.controls['tipoDocumento'].touched)" class="alert alert-danger small">
+                      Tipo de documento es requerido.
+                    </div>
                   </div>
                   <div class="form-group col-md-3">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    <input type="text" class="form-control" id="nombre" formControlName="nombre" required>
+                    <div *ngIf="empleadoForm.controls['nombre'].invalid && (empleadoForm.controls['nombre'].dirty || empleadoForm.controls['nombre'].touched)" class="alert alert-danger small">
+                      Nombre es requerido.
+                    </div>
                   </div>
                   <div class="form-group col-md-3">
                     <label for="apellido">Apellido:</label>
-                    <input type="text" class="form-control" id="apellido" name="apellido" required>
+                    <input type="text" class="form-control" id="apellido" formControlName="apellido" required>
+                    <div *ngIf="empleadoForm.controls['apellido'].invalid && (empleadoForm.controls['apellido'].dirty || empleadoForm.controls['apellido'].touched)" class="alert alert-danger small">
+                      Apellido es requerido.
+                    </div>
                   </div>
                 </div>
                 <div class="form-row mb-4">
                   
                   <div class="form-group col-md-4">
                     <label for="telefono">Teléfono:</label>
-                    <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                    <input type="tel" class="form-control" id="telefono" formControlName="telefono" required>
+                    <div *ngIf="empleadoForm.controls['telefono'].invalid && (empleadoForm.controls['telefono'].dirty || empleadoForm.controls['telefono'].touched)" class="alert alert-danger small">
+                      Teléfono es requerido.
+                    </div>
                   </div>
                   <div class="form-group col-md-4">
                     <label for="direccion">Dirección:</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion" required>
+                    <input type="text" class="form-control" id="direccion" formControlName="direccion" required>
+                    <div *ngIf="empleadoForm.controls['direccion'].invalid && (empleadoForm.controls['direccion'].dirty || empleadoForm.controls['direccion'].touched)" class="alert alert-danger small">
+                      Dirección es requerido.
+                    </div>
                   </div>
                 </div>
                 <div class="form-row mb-4">
                   <div class="form-group col-md-4">
                     <label for="fechaIngreso">Fecha de Ingreso:</label>
-                    <input type="date" class="form-control" id="fechaIngreso" name="fechaIngreso" required>
+                    <input type="date" class="form-control" id="fechaIngreso" formControlName="fechaIngreso" required>
+                    <div *ngIf="empleadoForm.controls['fechaIngreso'].invalid && (empleadoForm.controls['fechaIngreso'].dirty || empleadoForm.controls['fechaIngreso'].touched)" class="alert alert-danger small">
+                      Fecha de ingreso es requerido.
+                    </div>
                   </div>
                   <div class="form-group col-md-4">
                     <label for="fechaRetiro">Fecha de Retiro:</label>
-                    <input type="date" class="form-control" id="fechaRetiro" name="fechaRetiro">
+                    <input type="date" class="form-control" id="fechaRetiro" formControlName="fechaRetiro">
                   </div>
                   <div class="form-group col-md-4">
                     <label for="tipoContrato">Tipo de Contrato:</label>
-                    <input type="text" class="form-control" id="tipoContrato" name="tipoContrato" required>
+                    <select class="form-control" id="tipoContrato" formControlName="tipoContrato" required>
+                      <option *ngFor="let tipo of tiposContrato" [value]="tipo">{{tipo}}</option>
+                    </select>
+                    <div *ngIf="empleadoForm.controls['tipoContrato'].invalid && (empleadoForm.controls['tipoContrato'].dirty || empleadoForm.controls['tipoContrato'].touched)" class="alert alert-danger small">
+                      Tipo de contrato es requerido.
+                    </div>
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-4">
                     <label for="estado">Estado del Empleado:</label>
-                    <input type="text" class="form-control" id="estado" name="estado" required>
+                    <select class="form-control" id="estado" formControlName="estado" required>
+                      <option *ngFor="let estado of estados" [value]="estado">{{estado}}</option>
+                    </select>
+                    <div *ngIf="empleadoForm.controls['estado'].invalid && (empleadoForm.controls['estado'].dirty || empleadoForm.controls['estado'].touched)" class="alert alert-danger small">
+                      Estado del empleado es requerido.
+                    </div>
                   </div>
                   <div class="form-group col-md-4">
                     <label for="supervisor">Supervisor:</label>
-                    <input type="text" class="form-control" id="supervisor" name="supervisor">
+                    <input type="text" class="form-control" id="supervisor" formControlName="supervisor">
                   </div>
                   <div class="form-group col-md-4">
                     <label for="cargo">Cargo:</label>
                     <select class="form-control" id="cargo" formControlName="cargo" required>
                       <option *ngFor="let cargo of cargos" [value]="cargo.id">{{cargo.cargo}}</option>
                     </select>
+                    <div *ngIf="empleadoForm.controls['cargo'].invalid && (empleadoForm.controls['cargo'].dirty || empleadoForm.controls['cargo'].touched)" class="alert alert-danger small">
+                      Cargo es requerido.
+                    </div>
                   </div>
                 </div>
                 <br>
-                <button type="submit" class="btn btn-primary">Crear Empleado</button>
+                <button type="submit" class="btn btn-primary" *ngIf="!editMode">Crear Empleado</button>
           </form>
+          <form [formGroup]="empleadoForm" (ngSubmit)="editModeDeactivate()" *ngIf="editMode">
+            <div class="form-row mb-4">
+                <div class="form-group col-md-3">
+                  <label for="documento">Documento:</label>
+                  <input type="number" class="form-control" id="documento" formControlName="documento" required>
+                  <div *ngIf="empleadoForm.controls['documento'].invalid && (empleadoForm.controls['documento'].dirty || empleadoForm.controls['documento'].touched)" class="alert alert-danger small">
+                    Documento es requerido.
+                  </div>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="tipoDocumento">Tipo de Documento:</label>
+                  <select class="form-control" id="tipoDocumento" formControlName="tipoDocumento" required>
+                    <option *ngFor="let tipo of tiposDocumento" [value]="tipo">{{tipo}}</option>
+                  </select>
+                  <div *ngIf="empleadoForm.controls['tipoDocumento'].invalid && (empleadoForm.controls['tipoDocumento'].dirty || empleadoForm.controls['tipoDocumento'].touched)" class="alert alert-danger small">
+                    Tipo de documento es requerido.
+                  </div>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="nombre">Nombre:</label>
+                  <input type="text" class="form-control" id="nombre" formControlName="nombre" required>
+                  <div *ngIf="empleadoForm.controls['nombre'].invalid && (empleadoForm.controls['nombre'].dirty || empleadoForm.controls['nombre'].touched)" class="alert alert-danger small">
+                    Nombre es requerido.
+                  </div>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="apellido">Apellido:</label>
+                  <input type="text" class="form-control" id="apellido" formControlName="apellido" required>
+                  <div *ngIf="empleadoForm.controls['apellido'].invalid && (empleadoForm.controls['apellido'].dirty || empleadoForm.controls['apellido'].touched)" class="alert alert-danger small">
+                    Apellido es requerido.
+                  </div>
+                </div>
+              </div>
+              <div class="form-row mb-4">
+                
+                <div class="form-group col-md-4">
+                  <label for="telefono">Teléfono:</label>
+                  <input type="tel" class="form-control" id="telefono" formControlName="telefono" required>
+                  <div *ngIf="empleadoForm.controls['telefono'].invalid && (empleadoForm.controls['telefono'].dirty || empleadoForm.controls['telefono'].touched)" class="alert alert-danger small">
+                    Teléfono es requerido.
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="direccion">Dirección:</label>
+                  <input type="text" class="form-control" id="direccion" formControlName="direccion" required>
+                  <div *ngIf="empleadoForm.controls['direccion'].invalid && (empleadoForm.controls['direccion'].dirty || empleadoForm.controls['direccion'].touched)" class="alert alert-danger small">
+                    Dirección es requerido.
+                  </div>
+                </div>
+              </div>
+              <div class="form-row mb-4">
+                <div class="form-group col-md-4">
+                  <label for="fechaIngreso">Fecha de Ingreso:</label>
+                  <input type="date" class="form-control" id="fechaIngreso" formControlName="fechaIngreso" required>
+                  <div *ngIf="empleadoForm.controls['fechaIngreso'].invalid && (empleadoForm.controls['fechaIngreso'].dirty || empleadoForm.controls['fechaIngreso'].touched)" class="alert alert-danger small">
+                    Fecha de ingreso es requerido.
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="fechaRetiro">Fecha de Retiro:</label>
+                  <input type="date" class="form-control" id="fechaRetiro" formControlName="fechaRetiro">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="tipoContrato">Tipo de Contrato:</label>
+                  <select class="form-control" id="tipoContrato" formControlName="tipoContrato" required>
+                    <option *ngFor="let tipo of tiposContrato" [value]="tipo">{{tipo}}</option>
+                  </select>
+                  <div *ngIf="empleadoForm.controls['tipoContrato'].invalid && (empleadoForm.controls['tipoContrato'].dirty || empleadoForm.controls['tipoContrato'].touched)" class="alert alert-danger small">
+                    Tipo de contrato es requerido.
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="estado">Estado del Empleado:</label>
+                  <select class="form-control" id="estado" formControlName="estado" required>
+                    <option *ngFor="let estado of estados" [value]="estado">{{estado}}</option>
+                  </select>
+                  <div *ngIf="empleadoForm.controls['estado'].invalid && (empleadoForm.controls['estado'].dirty || empleadoForm.controls['estado'].touched)" class="alert alert-danger small">
+                    Estado del empleado es requerido.
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="supervisor">Supervisor:</label>
+                  <input type="text" class="form-control" id="supervisor" formControlName="supervisor">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="cargo">Cargo:</label>
+                  <select class="form-control" id="cargo" formControlName="cargo" required>
+                    <option *ngFor="let cargo of cargos" [value]="cargo.id">{{cargo.cargo}}</option>
+                  </select>
+                  <div *ngIf="empleadoForm.controls['cargo'].invalid && (empleadoForm.controls['cargo'].dirty || empleadoForm.controls['cargo'].touched)" class="alert alert-danger small">
+                    Cargo es requerido.
+                  </div>
+                </div>
+              </div>
+              <br>
+              <button type="submit" class="btn btn-primary" *ngIf="editMode">Editar Empleado</button>
+        </form>
         </div>
       </div>
       <br>
@@ -114,7 +262,7 @@
                     <td>{{ empleado.telefono }}</td>
                     <td>{{ empleado.direccion }}</td>
                     <td>{{ empleado.fechaIngreso | date }}</td>
-                    <td>{{ empleado.fechaRetiro ? empleado.fechaRetiro: 'N/A' | date : 'N/A' }}</td>
+                    <td>{{ empleado.fechaRetiro !== 'N/A' ? (empleado.fechaRetiro | date) : 'N/A' }}</td>
                     <td>{{ empleado.tipoContrato }}</td>
                     <td>{{ empleado.estado }}</td>
                     <td>{{ empleado.supervisor?.nombreCompleto }}</td>

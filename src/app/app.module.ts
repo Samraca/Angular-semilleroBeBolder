@@ -20,7 +20,7 @@ import { SolicitudesComponent } from './solicitudes/solicitudes.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
