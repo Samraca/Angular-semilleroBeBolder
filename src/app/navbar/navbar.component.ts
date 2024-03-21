@@ -10,6 +10,10 @@ import { SwitchSolicitudesService } from '../services/switch-solicitudes.service
 export class NavbarComponent {
   constructor (private modalSwitchEmpleado : SwitchEmpleadosService, private modalSwitchSolicitudes: SwitchSolicitudesService){}
 
+  ngOnInit(){
+    this.modalSwitchEmpleado.$Empleados.emit(true);
+  }
+
   public Empleados(){
     this.modalSwitchEmpleado.$Empleados.emit(true);
     this.modalSwitchSolicitudes.$Solicitudes.emit(false);

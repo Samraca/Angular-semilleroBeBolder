@@ -26,5 +26,9 @@ export class EmpleadoService {
   updateEmpleado(empleado: Object): Observable<Object> {
     return this.http.put(`${this.apiUrl}/update`, empleado);
   }
+
+  getCargos(): Observable<any[]> {
+    return this.http.get<any[]>("http://localhost:8080/cargos/getAll");
+  }
   
 }
