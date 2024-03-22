@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EmpleadosComponent implements OnInit{
   empleados: any[] = [];
   empleadoForm: FormGroup;
+  empleadoEditForm: FormGroup;
   editMode: boolean = false;
   cargos: any[] = [];
   tiposDocumento: string[] = ['Cédula', 'Cédula de Extranjería', 'Pasaporte', 'Tarjeta de Identidad'];
@@ -19,6 +20,22 @@ export class EmpleadosComponent implements OnInit{
   constructor (private empleadoService: EmpleadoService,
     private fb: FormBuilder) {
       this.empleadoForm = this.fb.group({
+        documento: [null, Validators.required],
+        tipoDocumento: [null, Validators.required],
+        nombre: [null, Validators.required],
+        apellido: [null, Validators.required],
+        telefono: [null, Validators.required],
+        direccion: [null, Validators.required],
+        fechaIngreso: [null, Validators.required],
+        fechaRetiro: [null],
+        tipoContrato: [null, Validators.required],
+        estado: [null, Validators.required],
+        supervisor: [null],
+        cargo: [null, Validators.required]
+      });
+
+      this.empleadoEditForm = this.fb.group({
+        id : [null, Validators.required],
         documento: [null, Validators.required],
         tipoDocumento: [null, Validators.required],
         nombre: [null, Validators.required],
@@ -64,12 +81,13 @@ export class EmpleadosComponent implements OnInit{
   }
 
   updateEmpleado(): void {
-    this.empleadoService.updateEmpleado(this.empleadoForm.value).subscribe(
+    this.empleadoService.updateEmpleado(this.empleadoEditForm.value).subscribe(
       data => {
-        const index = this.empleados.findIndex(e => e.id === this.empleadoForm.value.id);
-        this.empleados[index] = this.empleadoForm.value;
+        const index = this.empleados.findIndex(e => e.id === this.empleadoEditForm.value.id);
+        this.empleados[index] = this.empleadoEditForm.value;
+        alert('Empleado actualizado con éxito');
       },
-      error => console.error(error),
+      error => alert(error),
     );
   }
 
@@ -82,9 +100,34 @@ export class EmpleadosComponent implements OnInit{
 
   editModeActivate(){
     this.editMode = true;
+    this.empleadoService.getEmpleado(this.empleadoEditForm.value.id).subscribe(
+      data =>{
+        this.empleadoEditForm.setValue({
+          id: data.id,
+          documento: data.documento,
+          tipoDocumento: data.tipoDocumento,
+          nombre: data.nombre,
+          apellido: data.apellido,
+          telefono: data.telefono,
+          direccion: data.direccion,
+          fechaIngreso: new Date(data.fechaIngreso).toISOString().substring(0, 10),
+          fechaRetiro: data.fechaRetiro ? new Date(data.fechaRetiro).toISOString().substring(0, 10) : null,
+          tipoContrato: data.tipoContrato,
+          estado: data.estado,
+          supervisor: data.supervisor,
+          cargo: data.cargo.id
+        });
+        alert('Empleado cargado con éxito')
+      },
+      error => {
+        console.error(error);
+        alert('Hubo un error al cargar el empleado');
+      }
+    );
   }
 
   editModeDeactivate(){
+    this.updateEmpleado();
     this.editMode = false;
   }
   

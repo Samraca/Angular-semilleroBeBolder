@@ -22,9 +22,9 @@
             <h2 class="mr-5" *ngIf="!editMode">Crear Empleado</h2>
             <h2 class="mr-5" *ngIf="editMode">Editar Empleado</h2>
             <div class="m-5"></div>
-            <div class="form-group col-md-3 ml-5">
-              <label for="documento-buscar">Documento:</label>
-              <input type="text" class="form-control" id="documento-buscar" formControlName="documento" required>
+            <div class="form-group col-md-3 ml-5" [formGroup]="empleadoEditForm">
+              <label for="documento-buscar">Id del empleado:</label>
+              <input type="text" class="form-control" id="documento-buscar" formControlName="id" required>
             </div>
             <div class="form-group col-md-3">
               <label class="m-4"></label>
@@ -131,7 +131,7 @@
                 <br>
                 <button type="submit" class="btn btn-primary" *ngIf="!editMode">Crear Empleado</button>
           </form>
-          <form [formGroup]="empleadoForm" (ngSubmit)="editModeDeactivate()" *ngIf="editMode">
+          <form [formGroup]="empleadoEditForm" (ngSubmit)="editModeDeactivate()" *ngIf="editMode">
             <div class="form-row mb-4">
                 <div class="form-group col-md-3">
                   <label for="documento">Documento:</label>
