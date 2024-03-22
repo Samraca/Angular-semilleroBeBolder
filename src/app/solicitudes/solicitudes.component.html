@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,33 +8,36 @@
   <!-- Enlace al archivo CSS de Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
   <br>
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-10">
         <h2>Solicitud de Vacaciones</h2>
         <br>
-        <form>
-            <div class="form-group">
-                <label for="fechaInicio">Usuario:</label>
-                <input type="number" class="form-control" id="fechaInicio" name="fechaInicio" required>
+        <form [formGroup]="formSolicitud" (ngSubmit)="createSolicitud()">
+          <div class="form-row mb-4">
+            <div class="form-group col-md-4">
+              <label for="fechaInicio">id empleado:</label>
+              <input type="number" class="form-control" id="fechaInicio" formControlName="idEmpleado" required>
             </div>
-          <div class="form-group">
-            <label for="fechaInicio">Fecha de Inicio:</label>
-            <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
+            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-4">
+              <label for="fechaInicio">Fecha de Inicio:</label>
+              <input type="date" class="form-control" id="fechaInicio" formControlName="fechaInicio" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="fechaFin">Fecha de Fin:</label>
+              <input type="date" class="form-control" id="fechaFin" formControlName="fechaFin" required>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="fechaFin">Fecha de Fin:</label>
-            <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
-          </div>
-          <div class="form-group">
-            <label for="diasSolicitados">Días Solicitados:</label>
-            <input type="number" class="form-control" id="diasSolicitados" name="diasSolicitados" required>
-          </div>
-          <div class="form-group">
-            <label for="observaciones">Observaciones:</label>
-            <textarea class="form-control" id="observaciones" name="observaciones" rows="3"></textarea>
+          <div class="form-row mb-4">
+            <div class="form-group col-md-4">
+              <label for="observaciones">Observaciones:</label>
+              <textarea class="form-control" id="observaciones" formControlName="observaciones" rows="3"></textarea>
+            </div>
           </div>
           <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
           <br>
@@ -46,6 +50,16 @@
     <div class="row">
       <div class="col-md-12">
         <h2>Lista de Solicitudes de Vacaciones</h2>
+        <form [formGroup]="formBusquedaSolicitud" (ngSubmit)="getSolicitudesByEmpleado()">
+          <div class="form-group col-md-3 ml-5">
+            <label for="documento-buscar">Id del empleado:</label>
+            <input type="text" class="form-control" id="documento-buscar" formControlName="idEmpleado" required>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="m-4"></label>
+            <button type="submit" class="btn btn-primary">Buscar Empleado</button>
+          </div>
+        </form>
         <table class="table">
           <thead>
             <tr>
@@ -80,4 +94,5 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>
